@@ -1,0 +1,187 @@
+import discord
+from discord.ext.commands import Bot
+from discord.ext import commands
+import asyncio
+import time
+import random
+from discord import Game
+
+client = commands.Bot(command_prefix = "v!")
+
+@client.event
+async def on_ready():
+    print('{0.user}'.format(client))
+    print('Bot is Online.')
+
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+
+@client.command()
+async def r34(ctx):
+    responses = [
+            
+            #no. get your own.
+
+                ]
+    await ctx.send(random.choice(responses))
+@client.command(aliases=['8ball'])
+async def _8ball(ctx, question ):
+    responses = [
+                "It is certain.",
+                "It is decidedly so.",
+                "Without a doubt.",
+                "Yes - definitely.",
+                "You may rely on it.",
+                "As I see it, yes.",
+                "Most likely.",
+                "Outlook good.",
+                "Yes.",
+                "Signs point to yes.",
+                "Reply hazy, try again.",
+                "Ask again later.",
+                "Better not tell you now.",
+                "Cannot predict now.",
+                "Concentrate and ask again.",
+                "Don't count on it.",
+                "My reply is no.",
+                "My sources say no.",
+                "Outlook not so good.",
+                "Very doubtful."
+                ]
+    await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
+
+
+@client.command()
+async def cmds(ctx):
+    await ctx.send('```Prefix: v! \n-------Commands------- \n-cmds \n-r34 \n-ping \n-8ball (insert question after command) (kinda broken rn) \n-rolldie \n-coinflip \n-vivid \n-quote \n-------Admin commands------- \n-kick \n-ban \n-purge ```')
+
+@client.command(aliases =['vivid'])
+async def botping(ctx):
+    await ctx.send('Need something?')
+
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def purge(ctx, amount=5):
+    await ctx.channel.purge(limit=amount)
+    await ctx.send(f'Purged {amount} messages.')
+    time.sleep(0.7)
+    await ctx.channel.purge(limit=1)
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'Kicked {member}')
+@client.command()
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member : discord.Member, *, reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f'Banned {member}')
+
+@client.command()
+async def coinflip(ctx):
+    responses = [
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "Heads.",
+                "Tails.",
+                "...Side...",
+                ]
+    await ctx.send(random.choice(responses))
+
+@client.command()
+async def rolldie(ctx):
+    responses = [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "....It..landed on its corner..how did that even happen????"
+                ]
+    await ctx.send(random.choice(responses))
+
+@client.command()
+async def quote(ctx):
+    responses = [
+               "'deeez nuts, aha got yalll, if u fell for that come on now, lol lmfao, aha got u all'",
+               "'your mother'",
+               "'brrrr'",
+               "'Yo watch yo jet bro, wATCH YO JET'"
+               "'It's dire, but not hopeless.'"
+               ]
+    await ctx.send(random.choice(responses))
